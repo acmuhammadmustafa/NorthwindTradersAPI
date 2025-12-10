@@ -1,4 +1,4 @@
-package com.pluralsight.NorthwindTradersAPI;
+package com.pluralsight.NorthwindTradersAPI.data;
 
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -10,11 +10,11 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DatabaseConfig {
-BasicDataSource basicDataSource;
+    BasicDataSource basicDataSource;
 
-@Bean
+    @Bean
     public DataSource dataSource(){
-    return basicDataSource;
+        return basicDataSource;
     }
 
     public DatabaseConfig(
@@ -22,7 +22,7 @@ BasicDataSource basicDataSource;
             @Value("$datasource.username") String username,
             @Value("$datasource.password") String password
     ){
-    basicDataSource = new BasicDataSource();
+        basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(url);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
