@@ -1,4 +1,4 @@
-package com.pluralsight.NorthwindTradersAPI;
+package com.pluralsight.NorthwindTradersAPI.data;
 
 
 import org.apache.commons.dbcp2.BasicDataSource;
