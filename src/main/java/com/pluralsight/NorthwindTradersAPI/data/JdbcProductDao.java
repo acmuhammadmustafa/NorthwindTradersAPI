@@ -13,21 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcProductDao implements ProductDao{
+public class JdbcProductDao implements ProductDao {
     DataSource dataSource;
 
     @Autowired
-    public JdbcProductDao(DataSource dataSource){
+    public JdbcProductDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Override
-    public int add(Product product){
+    public int add(Product product) {
         return 0;
     }
 
     @Override
-    public List<Product> getAll() throws SQLException{
+    public List<Product> getAll() throws SQLException {
         System.out.println("From the MySQLProductDao" + dataSource.getConnection().toString());
 
         List<Product> products = new ArrayList<>();
@@ -42,10 +42,10 @@ public class JdbcProductDao implements ProductDao{
                 FROM products
                 JOIN Categories ON products.categoryId = Categories.CategoryId;""";
 
-        try(Connection connection = dataSource.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet results = statement.executeQuery()){
-            while(results.next()){
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet results = statement.executeQuery()) {
+            while (results.next()) {
                 int productid = results.getInt(1);
                 String productname = results.getString(2);
                 String categoryname = results.getString(3);
@@ -59,12 +59,5 @@ public class JdbcProductDao implements ProductDao{
         return products;
 
 
-
-
     }
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> cbfcc1db40f7b6fce780fe34f6b2f4f2ddaf7fd7
