@@ -1,12 +1,12 @@
 package com.pluralsight.NorthwindTradersAPI.controllers;
 
+import com.pluralsight.NorthwindTradersAPI.data.ProductDao;
 import com.pluralsight.NorthwindTradersAPI.models.Product;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.yaml.snakeyaml.events.Event;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,32 +14,41 @@ import java.util.List;
 @RestController
 public class ProductsController {
 
-    private List<Product>products;
+    private ProductDao productDao;
 
-    //http://localhost:8080/products should return a list of all products
-    //http://localhost:8080/products/5 should return a specific product
+    @Autowired
+    public ProductsController(ProductDao productDao){
 
-    public ProductsController(){
-        this.products  = new ArrayList<>();
-        products.add(new Product(1, "Apple", 1,1.99f));
-        products.add(new Product(2, "Blueberries", 1,2.99f));
-        products.add(new Product(3, "Banana", 1,0.99f));
-        products.add(new Product(4, "Meat", 2,9.99f));
+        this.productDao = productDao;
     }
 
-   @RequestMapping(path="/products",method = RequestMethod.GET)
-   public List<Product> getProducts(){
-        return products;
+    @RequestMapping(path="/products", method = RequestMethod.GET)
+    public List<Product> getProducts() {
+        return productDao.getAll();
     }
 
     @RequestMapping(path="/products/{id}", method=RequestMethod.GET)
     public Product getProduct(@PathVariable int id){
-        for(Product p : this.products){
-            if(p.getProductID() == id){
-                return p;
-            }
-        }
-        return null;
+        return productDao.getByID(id);
+    }
+
+    @RequestMapping(path="/products", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Product addProduct(@RequestBody Product product){
+        System.out.println("CREATE PRODUCT");
+        //return productDao.insert(product);
+        return new Product();
+    }
+
+    @RequestMapping(path="/products/{id}", method=RequestMethod.PUT)
+    public void updateProduct( @PathVariable int id, @RequestBody Product product){
+        productDao.update(id,product);
+    }
+
+    @RequestMapping(path="/products/{id}", method=RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable int id){
+        productDao.delete(id);
     }
 
 

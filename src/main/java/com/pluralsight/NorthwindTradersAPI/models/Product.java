@@ -1,60 +1,64 @@
 package com.pluralsight.NorthwindTradersAPI.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Product {
-    private int productID;
-    private String productName;
-    private int categoryID;
-    private double unitPrice;
+    private int productId;
+    private String name;
+    private int categoryId;
+    private double price;
 
-    public Product() {
+    @Autowired
+    public Product(){
+        //do nothing;
     }
 
-    public Product(int productID, String productName, int categoryID, double unitPrice) {
-        this.productID = productID;
-        this.productName = productName;
-        this.categoryID = categoryID;
-        this.unitPrice = unitPrice;
+//    public Product(int productId, String name, int categoryId, double price) {
+//        this.productId = productId;
+//        this.name = name;
+//        this.categoryId = categoryId;
+//        this.price = price;
+//    }
+
+    public int getProductId() {
+        return productId;
     }
 
-    public int getProductID() {
-        return productID;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public void setProductID(int productID) {
-        this.productID = productID;
+    public String getName() {
+        return name;
     }
 
-    public String getProductName() {
-        return productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public int getCategoryID() {
-        return categoryID;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public void setCategoryID(int categoryID) {
-        this.categoryID = categoryID;
+    public double getPrice() {
+        return price;
     }
 
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
     public String toString() {
-        return "Product[" +
-                " productID  = " + productID +
-                " | productName = " + productName +
-                " | categoryID = " + categoryID +
-                " | unitPrice = " + unitPrice +
-                ']';
+        return "Product{" +
+                "productId=" + productId +
+                ", name='" + name + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

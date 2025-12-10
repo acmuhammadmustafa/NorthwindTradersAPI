@@ -7,5 +7,10 @@ import java.util.List;
 
 public interface ProductDao {
     int add(Product product);
-    List<Product> getAll() throws SQLException;
+    List<Product> getAll() ;
+    Product getByID(int ID);
+    Product insert(Product product);
+    Product update(int ID, Product product);
+    Product delete(int ID);
+
 }
